@@ -1,7 +1,7 @@
 {
-  "name": "mongo-node",
+  "name": "mongo-repo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Build a Mongodb Repository for use in the Newspaper API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
