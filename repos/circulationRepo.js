@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 
 function circulationRepo() {
   const url = "mongodb://localhost:27017";
@@ -44,6 +44,24 @@ function circulationRepo() {
     })
   }
 
+  function getById(id) {
+    return new Promise(async (resolve, reject) => {
+      const client = new MongoClient(url);
+      try {
+        await client.connect();
+        const db = client.db(dbName);
+
+        const item = await db.collection('newspapers').findOne({_id: ObjectID(id)});
+        resolve(item);
+
+        client.close();
+      }
+      catch {
+        reject(error);
+      }
+    })
+  }
+
   function loadData(data) {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
@@ -61,7 +79,7 @@ function circulationRepo() {
     })
   }
 
-  return { loadData, get }
+  return { loadData, get, getById }
 
 }
 
