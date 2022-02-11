@@ -60,6 +60,9 @@ assert(removed);
 const deletedItem = await circulationRepo.getById(addedItem._id);
 assert.equal(deletedItem, null);
 
+const avgFinalists = await circulationRepo.averageFinalists();
+console.log('Average Finalists: ' + avgFinalists);
+
   } catch (error) {
         console.log(error);
   } finally {
