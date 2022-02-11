@@ -35,11 +35,25 @@ async function main() {
       "Pulitzer Prize Winners and Finalists, 1990-2003": 44,
       "Pulitzer Prize Winners and Finalists, 2004-2014": 41,
       "Pulitzer Prize Winners and Finalists, 1990-2014": 85
-  }
+  };
   const addedItem = await circulationRepo.add(newItem);
   assert(addedItem._id);
   const addedItemQuery = await circulationRepo.getById(addedItem._id);
   assert.deepEqual(addedItemQuery, newItem);
+
+  const updatedItem = await circulationRepo.update(addedItem._id,  {
+    "Newspaper": "My new paper",
+    "Daily Circulation, 2004": 1,
+    "Daily Circulation, 2013": 2,
+    "Change in Daily Circulation, 2004-2013": -100,
+    "Pulitzer Prize Winners and Finalists, 1990-2003": 44,
+    "Pulitzer Prize Winners and Finalists, 2004-2014": 41,
+    "Pulitzer Prize Winners and Finalists, 1990-2014": 85
+});
+
+assert.equal(updatedItem.Newspaper, "My new paper");
+const newAddedItemQuery = await circulationRepo.getById(addedItem._id);
+  assert.equal(newAddedItemQuery.Newspaper, "My new paper");
 
   } catch (error) {
         console.log(error);
