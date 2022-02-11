@@ -55,6 +55,11 @@ assert.equal(updatedItem.Newspaper, "My new paper");
 const newAddedItemQuery = await circulationRepo.getById(addedItem._id);
   assert.equal(newAddedItemQuery.Newspaper, "My new paper");
 
+const removed = await circulationRepo.remove(addedItem._id);
+assert(removed);
+const deletedItem = await circulationRepo.getById(addedItem._id);
+assert.equal(deletedItem, null);
+
   } catch (error) {
         console.log(error);
   } finally {
